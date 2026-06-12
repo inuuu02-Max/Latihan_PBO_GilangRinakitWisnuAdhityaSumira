@@ -2,26 +2,32 @@
 require_once 'Tiket.php';
 
 class TiketReguler extends Tiket {
+    // Properti tambahan terenkapsulasi khusus Tiket Reguler
     private $tipe_audio;
     private $lokasi_baris;
-    private $biaya_layanan = 3000;
 
     // Constructor Overriding
     public function __construct($id_tiket, $nama_film, $jadwal_tayang, $jumlah_kursi, $harga_dasar, $tipe_audio, $lokasi_baris) {
+        // Memanggil constructor dari abstract class induk (Tiket)
         parent::__construct($id_tiket, $nama_film, $jadwal_tayang, $jumlah_kursi, $harga_dasar);
         $this->tipe_audio = $tipe_audio;
         $this->lokasi_baris = $lokasi_baris;
     }
 
-    // Getter & Setter
+    // Getter untuk Enkapsulasi
     public function getTipeAudio() { return $this->tipe_audio; }
     public function getLokasiBaris() { return $this->lokasi_baris; }
 
-    // Implementasi Method Abstrak
+    // =========================================================================
+    // TAHAP 5: IMPLEMENTASI POLIMORFISME (METHOD OVERRIDING)
+    // =========================================================================
     public function hitungTotalHarga() {
-        return ($this->harga_dasar * $this->jumlah_kursi) + $this->biaya_layanan;
+        // Rumus Soal Tiket Reguler: Tarif standar murni tanpa biaya tambahan fasilitas
+        // Total Harga = jumlah_kursi * hargaDasarTiket
+        return $this->jumlah_kursi * $this->harga_dasar;
     }
 
+    // Implementasi menampilkan informasi fasilitas
     public function tampilkanInfoFasilitas() {
         return "Fasilitas Tiket Reguler: Kursi standar ergonomis, Tipe Audio: <strong>{$this->tipe_audio}</strong>, Berada di lokasi baris: <strong>{$this->lokasi_baris}</strong>.";
     }
